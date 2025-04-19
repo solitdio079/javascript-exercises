@@ -1,4 +1,12 @@
-const repeatString = function() {
+const repeatString = function(toBeRepeated,repeatCount) {
+    if(repeatCount < 0){
+        return "ERROR"
+    }
+    let resultString = ""
+    for(let i = 0; i < repeatCount;i++){
+        resultString += toBeRepeated
+    }
+    return resultString
 
 };
 
