@@ -1,0 +1,13 @@
+.container > div {
+    height: 100px;
+    width: 100px;
+    background-color: orange;
+    border-radius: 5px;
+    margin: 10px;
+}
+.container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
