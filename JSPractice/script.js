@@ -1,19 +1,14 @@
-const Formatter = (function(doc) {
-  const log = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
-
-  const makeUppercase = (text) => {
-    log("Making uppercase");
-    return text.toUpperCase();
-  };
-
-  const writeToDOM = (selector, message) => {
-    if (!!doc && "querySelector" in doc) {
-      doc.querySelector(selector).innerHTML = message;
-    }
+class User {
+  constructor(name){
+    this.name = name
   }
 
-  return {
-    makeUppercase,
-    writeToDOM,
+  sayHi(){
+    console.log(this.name)
   }
-})(document);
+}
+
+const user = new User("Jericko")
+user.sayHi()
+console.log(typeof User)
+
