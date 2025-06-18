@@ -1,14 +1,42 @@
-class User {
-  constructor(name){
-    this.name = name
-  }
-
-  sayHi(){
-    console.log(this.name)
-  }
+// Helper function to call async function `fn` after `ms` milliseconds
+function delay(fn, ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => fn().then(resolve, reject), ms);
+  });
 }
 
-const user = new User("Jericko")
-user.sayHi()
-console.log(typeof User)
+async function run() {
+  connect();
+
+  try {
+    await Promise.all([
+      // these 3 parallel jobs take different time: 100, 200 and 300 ms
+      // we use the `delay` helper to achieve this effect
+      delay(() => database.query(true), 100),
+      delay(() => database.query(false), 200),
+      delay(() => database.query(false), 300)
+    ]);
+    disconnect();
+  } catch(error) {
+    console.log('Error handled (or was it?)');
+  }
+
+  
+}
+
+let database;
+
+function connect() {
+  database = {
+    async query(isOk) {
+      if (!isOk) throw new Error('Query failed');
+    }
+  };
+}
+
+function disconnect() {
+  database = null;
+}
+
+run();
 
