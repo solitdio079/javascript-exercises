@@ -1,42 +1,117 @@
-// Helper function to call async function `fn` after `ms` milliseconds
-function delay(fn, ms) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => fn().then(resolve, reject), ms);
-  });
+function countdown(n){
+  if(n === 0){
+    console.log("Hooray!")
+  }else{
+    console.log(n)
+    countdown(n-1)
+  }
+}
+let copy
+function productOfArray(array){
+  copy = array.slice()
+  if(copy.length === 0) return 1
+  return copy.shift() * productOfArray(copy)
 }
 
-async function run() {
-  connect();
+console.log(productOfArray([1,2,3])) // 6
+console.log(productOfArray([1,2,3,10])) // 60
 
-  try {
-    await Promise.all([
-      // these 3 parallel jobs take different time: 100, 200 and 300 ms
-      // we use the `delay` helper to achieve this effect
-      delay(() => database.query(true), 100),
-      delay(() => database.query(false), 200),
-      delay(() => database.query(false), 300)
-    ]);
-    disconnect();
-  } catch(error) {
-    console.log('Error handled (or was it?)');
+var nestedObject = {
+  data: {
+      info: {
+          stuff: {
+              thing: {
+                  moreStuff: {
+                      magicNumber: 44,
+                      something: 'foo2'
+                  }
+              }
+          }
+      }
+  }
+}
+
+let hasIt = contains(nestedObject, 44); // true
+let doesntHaveIt = contains(nestedObject, "foo2"); // false
+
+console.log(hasIt)
+console.log(doesntHaveIt)
+
+function contains(nestedObject, value){
+  let valuesArray = Object.values(nestedObject)
+  if(valuesArray.length === 0) return false
+
+  let firstEl = valuesArray.shift() 
+  console.log(firstEl)
+  if(valuesArray[0] === value){
+    return true
+  } 
+  
+  if(firstEl instanceof Object){
+    return contains(firstEl, value)
+  }
+  
+ 
+}
+
+
+let n = 0
+function all(array,callback){
+  if(!callback(array[n])){
+    return false
+  }else{
+    n+=1
+    all(array,callback)
+  }
+  return true
+
+}
+// var allAreLessThanSeven = all([1,2,6], function(num){
+// 	return num < 7;
+// });
+
+// console.log(allAreLessThanSeven); // false
+
+function factorial(n){
+  if(n===1){
+    return 1
+  }else{
+    return n * factorial(n-1)
   }
 
-  
 }
+//console.log(factorial(10))
+//countdown(10)
 
-let database;
-
-function connect() {
-  database = {
-    async query(isOk) {
-      if (!isOk) throw new Error('Query failed');
-    }
-  };
+function power(base,exponent){
+  if(exponent === 0){
+    return 1
+  }else{
+    return base * power(base, exponent-1)
+  }
 }
-
-function disconnect() {
-  database = null;
+//console.log(power(3,3))
+function sumRange(n){
+  if(n <= 0){
+    return 0
+  }else{
+   return n + sumRange(n-1)
+  }
 }
+//console.log(sumRange(3))
+let step = 0
+function collatz(n){
 
-run();
-
+  if(n===1){
+    return step
+  }else if((n%2) === 0){
+    step+=1
+    //console.log(step)
+    return collatz(n/2)
+  }else{
+    step+=1
+    //console.log(step)
+    return collatz((3*n)+1)
+  }
+}
+//console.log(collatz(50))
