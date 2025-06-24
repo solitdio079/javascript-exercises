@@ -1,10 +1,17 @@
-console.log(replicate(7, 5)) // [5, 5, 5]
-console.log(replicate(1, 69)) // [69]
-console.log(replicate(-2, 6)) // []
-
-
-function replicate(timesArg, numArg){
-  if(timesArg <=0) return []
-  return [numArg,...replicate(timesArg-1, numArg)]
-
+function fibs(num){
+  const startArray = [0,1]
+  if(num<=2) return startArray
+  for(let i = 2; i <num;i++){
+    startArray.push(startArray[i-1]+startArray[i-2])
+  }
+  return startArray
 }
+
+console.log(fibs(20))
+
+function fibsRec(num){
+  if(num <=2) return [0,1]
+  return [...fibs(num-1),fibs(num-1)[fibs(num-1).length-1]+fibs(num-1)[fibs(num-1).length-2]]
+}
+console.log(fibsRec(20)) 
+
