@@ -10,8 +10,9 @@ function fibs(num){
 console.log(fibs(20))
 
 function fibsRec(num){
+  console.log("This was printed recursively");
   if(num <=2) return [0,1]
   return [...fibs(num-1),fibs(num-1)[fibs(num-1).length-1]+fibs(num-1)[fibs(num-1).length-2]]
 }
-console.log(fibsRec(20)) 
+console.log(fibsRec(8)) 
 
