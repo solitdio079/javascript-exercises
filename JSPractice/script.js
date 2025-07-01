@@ -1,18 +1,15 @@
-function fibs(num){
-  const startArray = [0,1]
-  if(num<=2) return startArray
-  for(let i = 2; i <num;i++){
-    startArray.push(startArray[i-1]+startArray[i-2])
+function stringToNumber(string) {
+  let hashCode = 0;
+
+  const primeNumber = 31;
+  for (let i = 0; i < string.length; i++) {
+    hashCode = primeNumber * hashCode + string.charCodeAt(i);
   }
-  return startArray
+
+  return hashCode;
 }
 
-console.log(fibs(20))
 
-function fibsRec(num){
-  console.log("This was printed recursively");
-  if(num <=2) return [0,1]
-  return [...fibs(num-1),fibs(num-1)[fibs(num-1).length-1]+fibs(num-1)[fibs(num-1).length-2]]
+function hash(name, surname) {
+  return stringToNumber(name) + stringToNumber(surname);
 }
-console.log(fibsRec(8)) 
-
